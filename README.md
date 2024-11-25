@@ -11,26 +11,33 @@ Password saving Application using **AWS Parameter Store**
 
 5. Click on Create Parameter
 
-6. -  Parameter Name: /demo-app/dev/db-url
-      Parameter Type:
-      String
-      Parameter Value: dev.database.demoapp.com:3306
+6. -  **Parameter 1**
+    ```
+    Parameter Name: /demo-app/dev/db-url
+    Parameter Type: String
+    Parameter Value: dev.database.demoapp.com:3306
+    ```
+    
+   -  **Parameter 2** (Encrypted parameter 1)
+   ```
+    Parameter Name: /demo-app/dev/db-password
+    Parameter Type: SecureString
+    Parameter Value: thisisthedevpassword
+    ```
 
-   -  Parameter Name: /demo-app/dev/db-password
-      Parameter Type: SecureString
-      Parameter Value: thisisthedevpassword
+   -  **Parameter 3**
+   ```
+    Parameter Name: /demo-app/prod/db-url
+    Parameter Type: String
+    Parameter Value: prod.database.demoapp.com:3306
+    ```
 
-      This is the First encrypted parameter
-
-   -  Parameter Name: /demo-app/prod/db-url
-      Parameter Type: String
-      Parameter Value: prod.database.demoapp.com:3306
-
-   -  Parameter Name: /demo-app/prod/db-password
-      Parameter Type: SecureString
-      Parameter Value: thisistheprodpassword
-
-      This is the Second encrypted parameter
+   -  **Parameter 4** (Encrypted parameter 2)
+   ```
+    Parameter Name: /demo-app/prod/db-password
+    Parameter Type: SecureString
+    Parameter Value: thisistheprodpassword
+    ```
   
 7. To view the parameter values, We will use CLI (Command Line Interface)
 
