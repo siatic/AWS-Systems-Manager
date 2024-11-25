@@ -1,5 +1,6 @@
 Password saving Application using **AWS Parameter Store**
 
+
 1. Head to the AWS Console
    
 2. Search for a Systems Manager Service
@@ -36,80 +37,30 @@ Password saving Application using **AWS Parameter Store**
 ```
    aws configure
 ```
-2. Create an Access key for the User
 
+9. Enter Access Key, Secret Access Key, Region-name and Output Format
+
+10. Run the following command to view the parameter values: 
 ``` 
-   User ->> Security credentials ->> Create Access Key ->> Use case: Command Line Interface (CLI)
-   ->> Create Access Key ->> Download .csv file
-```
-3. Launch an EC2 Instance and connect using SSH
-
-4. Install AWS-CLI and Configure AWS
-   Commands:
-```
-   sudo yum install awscli -y
-   aws --version
-   aws configure
+   aws ssm get-parameters --names /demo-app/dev/db-url /demo-app/dev/db-password
 ```
 
-5. Enter Access Key (mentioned in CSV file), Secret Access Key (mentioned in CSV file), Region-name and Output Format (json)
-
-6. Install Terraform
-   Commands:
+11. To view the decrypted parameter values, run the command:
 ```
-   sudo yum install -y yum-utils shadow-utils
-   sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
-   sudo yum -y install terraform
-   terraform --version
+   aws ssm get-parameters --names /demo-app/dev/db-url /demo-app/dev/db-password --with-decryption
 ```
 
-7. Create a Project directory and .tf file
-   Commands:
+12. We can get all the parameters value which are stored in a tree like structure by the following command:
 ```
-   mkdir Project
-   cd Project
-   touch main.tf
-   sudo nano main.tf
+   aws ssm get-parameters-by-path --path /demo-app/dev/
 ```
 
-8. Add the code below in main.tf file:
+13. To view all the parameters, we can use the root path by following command:
 ```
-terraform {
-     required_providers {
-       aws = {
-         source = "hashicorp/aws"
-         version = "5.66.0"
-       }
-     }
-   }
-  
-   provider "aws" {
-     region = "us-east-1"
-   }
-  
-   resource "aws_instance" "webserver" {
-     ami           = "ami-0182f373e66f89c85"
-     instance_type = "t2.micro"
-  
-     tags = {
-       Name = "Terraform-Instance"
-     }
-   }
+   aws ssm get-parameters-by-path --path /demo-app/ --recursive
 ```
 
-9. Save the main.tf file and execute the commands below:
-   Commands:
+14. To view the decrypted values of encrypted parameters, we can use the following command:
 ```
-   terraform init
-   terraform plan
-   terraform apply
+   aws ssm get-parameters-by-path --path /demo-app/ --recursive –-with-decryption
 ```
-
-10. Check the AWS Console to verify that a new EC2 instance has been created
-
-11. Execute the command to terminate the Terraform Instance
-    Command:
-```
-   terraform destroy
-```
-12. You will notice the EC2 instance is terminated
