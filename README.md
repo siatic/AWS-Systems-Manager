@@ -1,4 +1,4 @@
-Password saving Application using **AWS Parameter Store**
+##Password saving Application using **AWS Parameter Store**
 
 
 1. Head to the AWS Console
